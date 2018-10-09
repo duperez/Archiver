@@ -1,4 +1,4 @@
-#include "Arcrive.cpp"
+#include "Archive.cpp"
 #include <iostream>
 #include <vector>
 #define NUM_COMANDOS 5
@@ -16,7 +16,7 @@ public:
     void NovoArchive(string nome){
         conteudo.insert(conteudo.end(), Archive(nome));
         basic->insereArchive(nome);
-        basic->PegaConteudo();
+        basic->pegaCorpo();
     }
 
 };

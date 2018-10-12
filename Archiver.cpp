@@ -13,10 +13,9 @@ public:
     Archiver(){
         this->basic = new Archive("BASIC.txt");
     }
-    void NovoArchive(string nome){
+    void NovoArchive(string nome, string corpo){
         conteudo.insert(conteudo.end(), Archive(nome));
-        basic->insereArchive(nome);
-        basic->pegaCorpo();
+        basic->insereArchive(nome, corpo);
     }
 
 };

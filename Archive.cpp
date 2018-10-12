@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include <stdio.h>
 #define USED_TABS
 using namespace std;
@@ -13,48 +14,47 @@ public:
         aux = fopen(nome.c_str(), "w");
         fclose(aux);
         this->nome = nome;
-        criaIndex();
-        fclose(aux);
     };
 
-    int insereArchive(string conteudo){
+    int insereArchive(string nome, string conteudo){
         FILE* aux = fopen(this->nome.c_str(), "a");
-        fprintf(aux, "%s|",conteudo.c_str());
+        printf("Nome:%s/%s/%d/%c|", trataString(nome, 10), trataString(conteudo, 50), -1, 'S');
         fclose(aux);
         return 0;
     };
-    void criaIndex(){
+
+    int insereArchive(string nome, string conteudo, int continuacao){
         FILE* aux = fopen(this->nome.c_str(), "a");
-        for(int num = 0; num < 200; num++){
-            fprintf(aux, "%c", '*');
+        printf("%s/%s/%d/%c|", trataString(nome, 10), trataString(conteudo, 50), continuacao, 'S');
+        fclose(aux);
+        return 0;
+    };
+
+    char* trataString(string conteudo, int tam){
+        char* aux = new char[conteudo.length()];
+        strcpy(aux, conteudo.c_str());
+        if(conteudo.length() < tam){
+            return strcat(aux, criaString(tam-conteudo.length()));
+        }else{
+            return aux; 
         }
-        fprintf(aux, "%c", '\n');
-        fclose(aux);
-    }
-    void PegaConteudo(){
-         pegaIndex();
+    };
 
-    }
-    void pegaIndex(){
-        FILE* aux = fopen(this->nome.c_str(), "r");
-         fscanf(aux, "%s", this->index);
-         fclose(aux);
-    }
+    char* criaString(int tam){
+        char* str = new char[tam];
+        for(int i=0;i<tam;i++){
+            str[i] = '*';
+        }
+        return str;
+    };
 
-    void pegaCorpo(){
-        FILE* aux = procuraPosicao(201);
-        fscanf(aux, "%s", this->conteudo);
-        cout<<this->conteudo;
-        fclose(aux);
-
-    }
     FILE* procuraPosicao(int posi){
         FILE* aux = fopen ( this->nome.c_str() , "rb" );
         fseek(aux, posi, SEEK_SET);
         return aux;
-    }
+    };
+
     char* getIndex(){
         return this->index;
-    }
-
+    };
 };

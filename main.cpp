@@ -5,6 +5,6 @@ using namespace std;
 int main()
 {
     Archiver* aux = new Archiver();
-    aux->NovoArchive("ana.txt", "aaa");
+    aux->NovoArchive("abcdefghijk.txt", "abcedfghijklmnop");
     return 0;
 }

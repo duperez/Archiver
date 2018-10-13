@@ -1,6 +1,7 @@
 #include "Archive.cpp"
 #include <iostream>
 #include <vector>
+#include "Linha.cpp"
 #define NUM_COMANDOS 5
 
 using namespace std;
@@ -10,13 +11,13 @@ private:
     Archive* basic;
     vector<Archive>conteudo;
 public:
-    Archiver(){
-        this->basic = new Archive("BASIC.txt");
-    }
-    void NovoArchive(string nome){
-        conteudo.insert(conteudo.end(), Archive(nome));
-        basic->insereArchive(nome);
-        basic->pegaCorpo();
+    Archiver(){};
+    
+    void InsereNovoArquivo(char* nome, char* corpo){
+        Archive* arq = new Archive(nome);
+        bool fim;
+        arq->insereArchive(Linha::trataNome(nome, 10), Linha::trataCorpo(corpo, 100, fim), 'N');
+
     }
 
 };

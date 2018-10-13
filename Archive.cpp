@@ -1,60 +1,33 @@
 #include <iostream>
+#include <string.h>
 #include <stdio.h>
-#define USED_TABS
+#define NUM_CORPO 10
+#define NUM_NOME 10
 using namespace std;
 class Archive{
 private:
-    string nome;
     char index[200];
     char conteudo[2000];
 public:
-    Archive(string nome){
+    Archive(char* nome){
         FILE* aux;
-        aux = fopen(nome.c_str(), "w");
-        fclose(aux);
-        this->nome = nome;
-        criaIndex();
+        aux = fopen(nome, "w");
         fclose(aux);
     };
 
-    int insereArchive(string conteudo){
-        FILE* aux = fopen(this->nome.c_str(), "a");
-        fprintf(aux, "%s|",conteudo.c_str());
+    int insereArchive(char* nome, char* conteudo, char continua){
+        FILE* aux = fopen(nome, "w");
+        fprintf(aux, "%s/%s/%c/%c|", nome, conteudo, continua, 'S');
+        //cout<<"aqui";
         fclose(aux);
         return 0;
     };
-    void criaIndex(){
-        FILE* aux = fopen(this->nome.c_str(), "a");
-        for(int num = 0; num < 200; num++){
-            fprintf(aux, "%c", '*');
-        }
-        fprintf(aux, "%c", '\n');
-        fclose(aux);
-    }
-    void PegaConteudo(){
-         pegaIndex();
+    
 
-    }
-    void pegaIndex(){
-        FILE* aux = fopen(this->nome.c_str(), "r");
-         fscanf(aux, "%s", this->index);
-         fclose(aux);
-    }
-
-    void pegaCorpo(){
-        FILE* aux = procuraPosicao(201);
-        fscanf(aux, "%s", this->conteudo);
-        cout<<this->conteudo;
-        fclose(aux);
-
-    }
-    FILE* procuraPosicao(int posi){
-        FILE* aux = fopen ( this->nome.c_str() , "rb" );
+    FILE* procuraPosicao(char* nome, int posi){
+        FILE* aux = fopen (nome, "rb" );
         fseek(aux, posi, SEEK_SET);
         return aux;
-    }
-    char* getIndex(){
-        return this->index;
-    }
+    };
 
 };

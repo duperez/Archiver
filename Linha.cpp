@@ -5,8 +5,10 @@
 using namespace std;
 class Linha{
 public:
+
     //construtor do objeto linh 
     Linha(){};
+
     //classe que trata o corpo do arquivo
     static char* trataCorpo(char* conteudo, int tam, bool& fim){
         if(strlen(conteudo) < tam){
@@ -22,6 +24,7 @@ public:
             return retorno;
         }
     };
+
     //trata o nome do arquivo
     static char* trataNome(char* conteudo, int tam){
         char* retorno = new char[tam];
@@ -39,6 +42,7 @@ public:
         }
 
     };
+
     //criar um vetor de char que possui "*" em todas as opiçoes
     static char* criaString(int tam){
         char* str = new char[tam];
@@ -47,6 +51,7 @@ public:
         }
         return str;
     };
+    
     //retorna uma parte de um vetor
     static char* tratamentoDecomposicao(char* conteudo, int inicio, int fim){
         char* novaString = new char[fim - inicio];

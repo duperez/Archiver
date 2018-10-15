@@ -7,12 +7,13 @@ using namespace std;
 int main()
 {
     Archiver* aux = new Archiver();
-    string nome = "abcdef.txt";
-    string conteudo = "abcedfghijklmnop";
-    char* novoNome = new char[nome.length()];
-    strcpy(novoNome, nome.c_str());
-    char* novoConteudo = new char[conteudo.length()];
-    strcpy(novoConteudo, conteudo.c_str());
-    aux->InsereNovoArquivo(novoNome, novoConteudo);
+    FILE* f = fopen("ARQUIVOS.txt", "r");
+    char* nome;
+    char* corpo;
+    for(int x=0;x<3;x++){
+        fscanf(f, "%s", nome);
+        fscanf(f, "%s", corpo);
+        aux->InsereNovoArquivo(nome, corpo);
+    }
     return 0;
 }

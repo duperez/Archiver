@@ -16,8 +16,14 @@ public:
     void InsereNovoArquivo(char* nome, char* corpo){
         Archive* arq = new Archive(nome);
         bool fim;
-        arq->insereArchive(Linha::trataNome(nome, 10), Linha::trataCorpo(corpo, 100, fim), 'N');
-
-    }
+        char* linha;
+        while(strlen(corpo) > 10){
+           arq->insereArchive(Linha::trataNome(nome, 10), Linha::trataCorpo(corpo, 10, fim), 'V');
+           if(fim = true){
+               corpo = Linha::tratamentoDecomposicao(corpo, 10, strlen(corpo));
+           }
+        }
+        arq->insereArchive(Linha::trataNome(nome, 10), Linha::trataCorpo(corpo, 10, fim), 'V');
+    };
 
 };

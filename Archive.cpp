@@ -3,6 +3,7 @@
 #include <stdio.h>
 #define NUM_CORPO 10
 #define NUM_NOME 10
+
 using namespace std;
 class Archive{
 private:
@@ -15,12 +16,11 @@ public:
         fclose(aux);
     };
 
-    int insereArchive(char* nome, char* conteudo, char continua){
-        FILE* aux = fopen(nome, "w");
-        fprintf(aux, "%s/%s/%c/%c|", nome, conteudo, continua, 'S');
-        //cout<<"aqui";
+    char* insereArchive(char* nome, char* conteudo, char continua){
+        FILE* aux = fopen(nome, "a");
+        printf("%s/%s/%c/%c|\n", nome, conteudo, continua, 'S');
         fclose(aux);
-        return 0;
+        return conteudo;
     };
     
 
@@ -30,4 +30,7 @@ public:
         return aux;
     };
 
+    char* leNomes(int tam){
+
+    }
 };

@@ -8,12 +8,13 @@ int main()
 {
     Archiver* aux = new Archiver();
     FILE* f = fopen("ARQUIVOS.txt", "r");
-    char* nome;
-    char* corpo;
-    for(int x=0;x<3;x++){
+    char* nome = new char[10];
+    char* corpo = new char[10];
+    for(int x = 0; x < 3; x++){
         fscanf(f, "%s", nome);
         fscanf(f, "%s", corpo);
         aux->InsereNovoArquivo(nome, corpo);
     }
+    fclose(f);
     return 0;
 }

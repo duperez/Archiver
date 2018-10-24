@@ -1,10 +1,6 @@
-#include <iostream>
-#include "Archiver.cpp"
-using namespace std;
-
-int main()
-{
-    Archiver* aux = new Archiver();
-    aux->NovoArchive("banana.txt");
+#include "arquivo.cpp"
+int main(){
+    Arquivo arq("arq.txt");
+    //printf("%d", arq.verificaArquivoExiste());
     return 0;
 }

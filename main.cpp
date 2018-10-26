@@ -1,6 +1,8 @@
-#include "arquivo.cpp"
+#include "archiver.cpp"
+#include <stdio.h>
 int main(){
     Arquivo arq("arq.txt");
-    //printf("%d", arq.verificaArquivoExiste());
+    Archiver arch("archiver.txt");
+    arch.escreveArquivo(arq);
     return 0;
 }

@@ -4,6 +4,7 @@ private:
     //nome do arqivo
     char* nome;
     //posicao do ponteiro no arquivo
+    //é usado como uma variavel para que, mesmo com o arquivo efetivamente fechado, a posição não seja perdida
     int posi;
 public:
     //construtor do arquivo
@@ -35,18 +36,18 @@ public:
         char caractere;
         FILE* file = fopen(this->nome, "r");
         fseek(file, this->posi++, SEEK_SET);
-        fscanf(file, "%c", &caractere);
-        if(file){
+        int fn = fscanf(file, "%c", &caractere);
+        if(fn != EOF){
             fim = 1;
             fclose(file);
             return caractere;
         }else{
             fim = 0;
             fclose(file);
-            return ' ';
+            return '\0';
         }
     };
-
+    //le um arquivo retornando um \0 caso o arquivo esteja no fim
     char leArquivo(){
         char caractere;
         FILE* file = fopen(this->nome, "r");
@@ -57,21 +58,22 @@ public:
             return caractere;
         }else{
             fclose(file);
-            return ' ';
+            return '\0';
         }
     };
 
-    int leArquivoInt(){
-        int num;
+    //le um caractere do arquivo na posição fornecida
+    char leArquivo(int position){
+        char caractere;
         FILE* file = fopen(this->nome, "r");
-        fseek(file, this->posi++, SEEK_SET);
-        fscanf(file, "%d", &num);
+        fseek(file, position, SEEK_SET);
+        fscanf(file, "%c", &caractere);
         if(file){
             fclose(file);
-            return num;
+            return caractere;
         }else{
             fclose(file);
-            return ' ';
+            return '\0';
         }
     };
 
@@ -81,48 +83,31 @@ public:
     };
 
     //metodo que retorna a posicao do ponteiro
-    int getPosicao(){
+    int getPonteiro(){
         return this->posi;
     };
-
     //metodo que manda o ponteiro do arquivo para uma posicao especifica
     void setPonteiro(int posi){
         this->posi = posi;
     };
 
     //escreve um caractere no final do arquivo
-    void escreveNoArquivo(char caractere){
+    int escreveNoArquivo(char caractere){
         FILE* file = fopen(this->nome, "a");
         fprintf(file, "%c",caractere);
+        int posi = ftell(file);
         fclose(file);
-    };
-
-    //escreve um caractere na posicao indicada
-    void escreveNoArquivo(char caractere, int posi){
-        FILE* file = fopen(this->nome, "r+");
-        fseek(file, posi, SEEK_SET);
-        fprintf(file, "%c",caractere);
-        fclose(file);
-    };
-
-    void escreveNoArquivo(int num, int posi){
-        FILE* file = fopen(this->nome, "r+");
-        fseek(file, posi, SEEK_SET);
-        fprintf(file, "%d",num);
-        fclose(file);
-    };
-
-    void escreveNoArquivo(int num){
-        FILE* file = fopen(this->nome, "a");
-        fprintf(file, "%d",num);
-        fclose(file);
+        return posi;
     };
 
     //escreve uma string no arquivo
     void escreveNoArquivo(char* palavra){
         FILE* file = fopen(this->nome, "a");
-        fseek(file, posi, SEEK_SET);
         fprintf(file, "%s", palavra);
         fclose(file);
+    }
+    //posiciona o ponteiro do leitor em uma posição especifica
+    void posicionaPonteiro(int position){
+        this->posi = position;
     }
 };
